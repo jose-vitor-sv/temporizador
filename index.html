@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso tempo juntos <3</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe6f2;
+            padding: 50px;
+            overflow: hidden;
+        }
+        h1 {
+            color: #d63384;
+        }
+        #contador {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ff4081;
+            position: relative;
+            z-index: 2;
+        }
+        .coracao {
+            position: absolute;
+            color: #ff4081;
+            font-size: 30px;
+            animation: flutuar 5s infinite linear;
+        }
+        @keyframes flutuar {
+            0% { transform: translateY(100vh) translateX(0); opacity: 1; }
+            100% { transform: translateY(-10vh) translateX(20px); opacity: 0; }
+        }
+        audio {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tempo desde 13/09/2023 às 19:00</h1>
+    <div id="contador">Calculando...</div>
+
+    <!-- Música de fundo -->
+    <audio autoplay loop controls>
+        <source src="https://www.dropbox.com/scl/fi/pmbjwbvd5ybh76j6wr3rd/Boy-Pablo-Dance-Baby.mp3?rlkey=by6ogxiue8yy1tj7vzo7f7rr9&dl=1" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+    </audio>
+
+    <script>
+        function atualizarContador() {
+            const dataInicial = new Date("2023-09-13T19:00:00");
+            const agora = new Date();
+            const diferenca = agora - dataInicial;
+
+            const segundos = Math.floor((diferenca / 1000) % 60);
+            const minutos = Math.floor((diferenca / 1000 / 60) % 60);
+            const horas = Math.floor((diferenca / (1000 * 60 * 60)) % 24);
+            const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+
+            document.getElementById("contador").innerHTML =
+                `${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos`;
+        }
+
+        setInterval(atualizarContador, 1000);
+        atualizarContador();
+
+        function criarCoracoes() {
+            const coracao = document.createElement("div");
+            coracao.classList.add("coracao");
+            coracao.innerHTML = "❤️";
+            document.body.appendChild(coracao);
+
+            coracao.style.left = Math.random() * 100 + "vw";
+            coracao.style.animationDuration = (Math.random() * 3 + 3) + "s";
+            coracao.style.fontSize = Math.random() * 30 + 20 + "px";
+
+            setTimeout(() => {
+                coracao.remove();
+            }, 5000);
+        }
+
+        setInterval(criarCoracoes, 300);
+    </script>
+</body>
+</html>
